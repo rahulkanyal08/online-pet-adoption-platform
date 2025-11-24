@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Pet Adoption Platform</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- LOGIN PAGE -->
+    <div id="loginPage" class="login-page">
+        <div class="container text-center my-5">
+            <h1 class="display-4 animate__animated animate__fadeInDown">🐾 Pet Adoption Platform</h1>
+            <p class="lead animate__animated animate__fadeInDown" style="animation-delay: 0.2s;">Find your perfect companion</p>
+            
+            <div class="login-container mt-4 animate__animated animate__fadeInUp">
+                <h2 class="mb-4">Login</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="email" placeholder="Enter Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password" placeholder="Enter Password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>  
+                </form>
+                <hr>
+                <p>Demo Accounts:</p>
+                <small>Admin: admin@petadoption.com / admin123</small><br>
+                <small>Shelter: shelter@happypaws.com / shelter123</small><br>
+                <small>Adopter: john@email.com / john123</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD -->
+    <div id="adminDashboard" class="dashboard" style="display: none;">
+        <nav class="navbar navbar-dark bg-dark">
+            <span class="navbar-brand mb-0 h1">🐾 Admin Dashboard</span>
+            <button class="btn btn-outline-light" onclick="logout()">Logout</button>
+        </nav>
+
+        <div class="container-fluid mt-4">
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Users</h5>
+                            <p class="card-text" id="adminTotalUsers">4</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Pets</h5>
+                            <p class="card-text" id="adminTotalPets">3</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-warning text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Pending Approvals</h5>
+                            <p class="card-text" id="adminPendingPets">1</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Applications</h5>
+                            <p class="card-text" id="adminTotalApps">2</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>User Management</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="adminUsersList"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Pending Pet Approvals</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="adminPendingList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHELTER DASHBOARD -->
+    <div id="shelterDashboard" class="dashboard" style="display: none;">
+        <nav class="navbar navbar-dark bg-dark">
+            <span class="navbar-brand mb-0 h1">🏠 Shelter Dashboard</span>
+            <button class="btn btn-outline-light" onclick="logout()">Logout</button>
+        </nav>
+
+        <div class="container-fluid mt-4">
+            <ul class="nav nav-tabs mb-4" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#shelterPets">My Pets</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#shelterApplications">Applications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#shelterStats">Statistics</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <!-- My Pets Tab -->
+                <div id="shelterPets" class="tab-pane fade show active">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>List New Pet</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="addPetForm">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Pet Name</label>
+                                        <input type="text" class="form-control" placeholder="e.g., Max" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Type</label>
+                                        <select class="form-control" required>
+                                            <option>Dog</option>
+                                            <option>Cat</option>
+                                            <option>Rabbit</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Breed</label>
+                                        <input type="text" class="form-control" placeholder="e.g., Golden Retriever" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Age</label>
+                                        <input type="number" class="form-control" placeholder="e.g., 3" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea class="form-control" rows="3" placeholder="Describe the pet..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success">List Pet</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5>Your Listed Pets</h5>
+                        </div>
+                        <div class="card-body" id="shelterPetsList"></div>
+                    </div>
+                </div>
+
+                <!-- Applications Tab -->
+                <div id="shelterApplications" class="tab-pane fade">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Applications for Your Pets</h5>
+                        </div>
+                        <div class="card-body" id="shelterApplicationsList"></div>
+                    </div>
+                </div>
+
+                <!-- Statistics Tab -->
+                <div id="shelterStats" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h5>Total Pets Listed</h5>
+                                    <p class="h3" id="shelterTotalPets">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h5>Pets Adopted</h5>
+                                    <p class="h3" id="shelterAdoptedPets">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h5>Applications</h5>
+                                    <p class="h3" id="shelterApplicationCount">0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADOPTER DASHBOARD -->
+    <div id="adopterDashboard" class="dashboard" style="display: none;">
+        <nav class="navbar navbar-dark bg-dark">
+            <span class="navbar-brand mb-0 h1">💚 Adopter Dashboard</span>
+            <button class="btn btn-outline-light" onclick="logout()">Logout</button>
+        </nav>
+
+        <div class="container-fluid mt-4">
+            <ul class="nav nav-tabs mb-4" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#browsePets">Browse Pets</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#myApplications">My Applications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#myProfile">Profile</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <!-- Browse Pets Tab -->
+                <div id="browsePets" class="tab-pane fade show active">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Search Pets</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Pet Type</label>
+                                    <input type="text" class="form-control" id="searchType" placeholder="e.g., Dog, Cat">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Breed</label>
+                                    <input type="text" class="form-control" id="searchBreed" placeholder="e.g., Golden Retriever">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="searchPets()">Search</button>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5>Available Pets</h5>
+                        </div>
+                        <div class="card-body" id="availablePetsList"></div>
+                    </div>
+                </div>
+
+                <!-- My Applications Tab -->
+                <div id="myApplications" class="tab-pane fade">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Your Applications</h5>
+                        </div>
+                        <div class="card-body" id="myApplicationsList"></div>
+                    </div>
+                </div>
+
+                <!-- Profile Tab -->
+                <div id="myProfile" class="tab-pane fade">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Profile Management</h5>
+                        </div>
+                        <div class="card-body" id="profileContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
