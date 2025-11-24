@@ -1,6 +1,8 @@
-import java.util.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Complete Pet Adoption Platform Backend
@@ -304,7 +306,7 @@ public class PetAdoptionBackend {
                         System.out.println("1. admin\n2. shelter\n3. adopter");
                         System.out.print("Select new role: ");
                         String roleChoice = scanner.nextLine().trim();
-                        String[] roles = {"", "admin", "shelter", "adopter"};
+                        String[] roles = { "", "admin", "shelter", "adopter" };
                         if (Integer.parseInt(roleChoice) >= 1 && Integer.parseInt(roleChoice) <= 3) {
                             user.role = roles[Integer.parseInt(roleChoice)];
                             System.out.println("✓ Role updated successfully!");
